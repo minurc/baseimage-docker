@@ -9,4 +9,7 @@ RUN /build/prepare.sh && \
 	/build/utilities.sh && \
 	/build/cleanup.sh
 
+VOLUME /dev
+VOLUME /var/log
+
 CMD ["/sbin/my_init"]

@@ -1,2 +1,2 @@
 #!/bin/sh
-exec tail -F -n 0 /var/log/syslog
+exec tail -F -n 0 /var/log/127.0.0.1/syslog.log

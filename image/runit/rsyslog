@@ -5,11 +5,10 @@ set -e
 # e.g. because of the issue documented at https://github.com/phusion/baseimage-docker/pull/25,
 # then we remove it.
 if [ ! -S /dev/log ]; then rm -f /dev/log; fi
-if [ ! -S /var/lib/syslog-ng/syslog-ng.ctl ]; then rm -f /var/lib/syslog-ng/syslog-ng.ctl; fi
 
-SYSLOGNG_OPTS=""
+RSYSLOGNG_OPTS="-x"
 
-[ -r /etc/default/syslog-ng ] && . /etc/default/syslog-ng
+[ -r /etc/default/rsyslog ] && . /etc/default/rsyslog
 
 case "x$CONSOLE_LOG_LEVEL" in
   x[1-8])
@@ -29,4 +28,4 @@ then
   [ -x /sbin/restorecon ] && /sbin/restorecon $XCONSOLE
 fi
 
-exec syslog-ng -F -p /var/run/syslog-ng.pid $SYSLOGNG_OPTS
+exec rsyslogd -n -i /var/run/rsyslog.pid $RSYSLOGNG_OPTS

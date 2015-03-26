@@ -1,0 +1,24 @@
+
+## Enable UDP logging facility
+#
+
+$ModLoad imudp
+
+## default UDP port 514
+#
+
+$UDPServerRun 514
+
+
+## tempates
+#
+
+$template RMTFILE,"/var/log/%fromhost-ip%/syslog.log"
+
+
+## rules
+#
+
+*.* ?RMTFILE
+
+
