@@ -7,6 +7,7 @@ set -e
 if [ ! -S /dev/log ]; then rm -f /dev/log; fi
 
 RSYSLOGNG_OPTS="-x"
+PID=/var/run/rsyslog.pid
 
 [ -r /etc/default/rsyslog ] && . /etc/default/rsyslog
 
@@ -28,4 +29,9 @@ then
   [ -x /sbin/restorecon ] && /sbin/restorecon $XCONSOLE
 fi
 
-exec rsyslogd -n -i /var/run/rsyslog.pid $RSYSLOGNG_OPTS
+if [ -f $PID ]
+then
+        rm -f $PID
+fi
+
+exec rsyslogd -n -i $PID $RSYSLOGNG_OPTS
